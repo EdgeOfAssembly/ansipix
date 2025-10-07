@@ -23,9 +23,9 @@ import json
 import signal
 from typing import Tuple, List, Optional
 
-from render import render_video_image
-from image_process import process_single_frame
-from debug_logger import DebugLogger
+from .render import render_video_image
+from .image_process import process_single_frame
+from .debug_logger import DebugLogger
 
 def producer(
     queue: Queue, 

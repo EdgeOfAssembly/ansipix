@@ -9,8 +9,8 @@ import numpy as np
 import argparse
 from typing import Tuple
 
-from render import render_video_image
-from image_process import process_single_frame
+from .render import render_video_image
+from .image_process import process_single_frame
 
 def render_frame_for_offline(task_args: Tuple[np.ndarray, argparse.Namespace, int, int, str]) -> str:
     """

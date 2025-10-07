@@ -20,8 +20,8 @@ import numpy as np
 import cv2
 from PIL import Image, ImageSequence
 from bisect import bisect_left
-from dimensions import calculate_dimensions
-from debug_logger import DebugLogger
+from .dimensions import calculate_dimensions
+from .debug_logger import DebugLogger
 
 # --- Constants ---
 _PIXEL_PER_CHAR_W = 1

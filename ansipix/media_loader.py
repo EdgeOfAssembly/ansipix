@@ -10,7 +10,7 @@ memory, making it efficient for large files.
 import cv2
 from PIL import Image, ImageSequence
 from typing import Tuple, List, Optional
-from debug_logger import DebugLogger
+from .debug_logger import DebugLogger
 
 def load_media(image_path: str, logger: DebugLogger) -> Tuple[bool, List, List[float], int, Optional[Image.Image], int, int]:
     """
