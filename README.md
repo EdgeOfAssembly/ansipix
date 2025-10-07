@@ -8,6 +8,16 @@
 
 `ansipix` is a powerful, command-line utility for rendering images, animated GIFs, and videos directly in your terminal using 24-bit "truecolor" ANSI art. It is designed for high performance, with a special focus on smooth video playback and an efficient custom file format for pre-rendered animations.
 
+### Installation
+
+The recommended way to install `ansipix` is using `pip`:
+
+```bash
+pip install ansipix
+```
+
+This will automatically install the package and all its dependencies, making the `ansipix` command available in your terminal.
+
 ---
 
 ## Features
