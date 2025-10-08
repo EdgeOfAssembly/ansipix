@@ -8,6 +8,16 @@
 
 `ansipix` is a powerful, command-line utility for rendering images, animated GIFs, and videos directly in your terminal using 24-bit "truecolor" ANSI art. It is designed for high performance, with a special focus on smooth video playback and an efficient custom file format for pre-rendered animations.
 
+## 🎬 Sample Videos Converted to Terminal ANSI Art
+
+Get a taste of what your videos will look like when converted to vivid ANSI art for the terminal! Check out these samples:
+
+- [Sample 1](https://drive.google.com/file/d/16JNnaaoCMCQzo3t8yLcDo8X00DoAtmX2/view)
+- [Sample 2](https://drive.google.com/file/d/1ISAlvCLuHWLahWl8lZuQjXXIv_JKhw6u/view)
+- [Sample 3](https://drive.google.com/file/d/1LANmGEg8V0yWHEkaQBGj9rpDI-rU8HpJ/view)
+
+---
+
 ### Installation
 
 The recommended way to install `ansipix` is using `pip`:
@@ -38,13 +48,30 @@ This will automatically install the package and all its dependencies, making the
 
 ---
 
-## Performance Recommendations
+## 🚀 Performance & Configuration Recommendations
 
-`ansipix` is highly optimized and can generate ANSI data faster than many terminals can draw it. The playback speed is therefore **bound by the performance of your terminal emulator**.
+`ansipix` is highly optimized and can generate ANSI data faster than many terminals can draw it. The playback speed is therefore **bound by the performance of your terminal emulator**. For the best experience, especially with high-resolution or high-FPS videos, a GPU-accelerated terminal is **highly recommended**.
 
-For the best experience, especially with high-resolution or high-FPS videos, a GPU-accelerated terminal is **highly recommended**.
+### Recommended Terminal Configurations
 
-I personally recommend **[Alacritty](https://alacritty.org/)**, as it is one of the fastest terminals available and provides an exceptionally smooth viewing experience with `ansipix`.
+-   **Alacritty (High-Speed Performance):** For blazing fast rendering, [Alacritty](https://alacritty.org/) is the top choice. Use this optimal configuration for the best results:
+    -   [alacritty.toml (Google Drive)](https://drive.google.com/file/d/1TNYd7llQqP-FVV-3z0JL-QgEu6NG5bro/view)
+
+-   **KMSCON (For Pure Virtual Console):** If you prefer running `ansipix` without Xorg, use [kmscon](https://github.com/Aetf/kmscon) with this tuned configuration:
+    -   [kmscon.conf (Google Drive)](https://drive.google.com/file/d/16JNnaaoCMCQzo3t8yLcDo8X00DoAtmX2/view)
+
+### Recommended Monospace Fonts for Terminal ANSI Art
+
+For the best possible quality and experience, use one of these top-rated fonts optimized for ANSI art:
+
+1.  **JetBrains Mono**
+    -   *Superb clarity and perfect box-drawing support*
+2.  **Fira Mono**
+    -   *Crisp, consistent, and excellent for ANSI graphics*
+3.  **Fira Code**
+    -   *Outstanding rendering (disable ligatures for pure ANSI art)*
+4.  **Hack**
+    -   *Reliable and clear, designed for coding and terminal use*
 
 ---
 
@@ -52,16 +79,14 @@ I personally recommend **[Alacritty](https://alacritty.org/)**, as it is one of 
 
 **Important:** The offline rendering process (`--output file.ansipix`) can consume a very large amount of RAM and disk space.
 
-The `.ansipix` format stores uncompressed ANSI text data for every single frame. The amount of data generated is directly proportional to the number of characters on the screen. Using a smaller font size dramatically increases the character count, leading to exponentially larger files.
+The `.ansipix` format stores uncompressed ANSI text data for every single frame. Using a smaller font size dramatically increases the character count, leading to exponentially larger files.
 
-**Real-World Example:** During testing, a **22 MB** WebM video (922 frames, 36 seconds) rendered with a **4pt** monospace font resulted in a **2.1 GB** `.ansipix` file and consumed a significant amount of memory during creation.
+**Real-World Example:** A **22 MB** WebM video (922 frames) rendered with a **4pt** font resulted in a **2.1 GB** `.ansipix` file.
 
 Please follow these recommendations when creating `.ansipix` files:
--   **Start with short video clips** (e.g., under 10 seconds) to gauge the output size.
--   **Use a reasonable font size (8pt or larger)** for your initial tests. Avoid very small font sizes unless you are prepared for massive file sizes.
--   Playback of these large, high-density `.ansipix` files is also very demanding on the terminal. A GPU-accelerated terminal like **[Alacritty](https://alacritty.org/)** is strongly recommended for a smooth experience.
-
-The author plans to investigate optimizations for the offline rendering process in a future release.
+-   **Start with short video clips** (e.g., under 10 seconds).
+-   **Use a reasonable font size (8pt or larger)**.
+-   A GPU-accelerated terminal like **[Alacritty](https://alacritty.org/)** is strongly recommended for playback of high-density files.
 
 ---
 
@@ -72,13 +97,13 @@ Play any supported image, GIF, or video directly. Press `Ctrl+C` at any time to 
 
 ```bash
 # Play a static image
-python3 ansipix.py path/to/my_image.png
+ansipix path/to/my_image.png
 
 # Play an animated GIF (loops infinitely by default)
-python3 ansipix.py path/to/animation.gif
+ansipix path/to/animation.gif
 
 # Play a video and loop it 3 times
-python3 ansipix.py path/to/my_video.mp4 --loop 3
+ansipix path/to/my_video.mp4 --loop 3
 ```
 
 ### 2. Creating an `.ansipix` File
@@ -86,18 +111,18 @@ Render a video into the custom file format. This will use all your CPU cores for
 
 ```bash
 # Convert a video to an .ansipix file
-python3 ansipix.py my_video.webm --output my_video.ansipix
+ansipix my_video.webm --output my_video.ansipix
 ```
 
 ### 3. Playing an `.ansipix` File
 Play a pre-rendered file. This is the most efficient way to watch, using very little CPU.
 
 ```bash
-# Play the file you just created (will use the loop setting saved in the file)
-python3 ansipix.py my_video.ansipix
+# Play the file you just created
+ansipix my_video.ansipix
 
 # Play the file and override the saved loop setting to loop infinitely
-python3 ansipix.py my_video.ansipix --loop 0
+ansipix my_video.ansipix --loop 0
 ```
 
 ---
@@ -130,7 +155,7 @@ options:
   --buffer-percent BUFFER_PERCENT
                         Percentage of free RAM to use for pre-buffering (0-100, default 10).
   --downsample-method {nearest,linear,cubic,area,lanczos4}
-                        Downsampling method for OpenCV resizing (default: area). Supported: nearest, linear, cubic, area, lanczos4.
+                        Downsampling method for OpenCV resizing (default: area).
   --profile PROFILE     Profile the execution and save to specified file.
 ```
 
@@ -138,19 +163,17 @@ options:
 
 ## Current Limitations & Future Work
 
-This project is fully functional for its core purpose, but there are several areas that are not yet implemented or fully tested.
-
--   **Unimplemented Arguments:** The `--width`, `--height`, and `--full-width` arguments are currently placeholders and do not affect the output size. The renderer will always auto-fit to the terminal dimensions.
--   **Missing Sound Support:** The player renders video only. Audio from video files is ignored.
--   **Missing Playback Controls:** There are no controls for pausing, seeking, or adjusting speed during playback. This is a planned feature for a future release.
--   **Image/GIF Offline Rendering:** The offline rendering pipeline (`--output file.ansipix`) is fully implemented for videos but is not yet complete for static images or GIFs.
--   **Code Refactoring:** The `image_player.py` module contains a separate, more complex rendering pipeline for handling backgrounds and transparency. In the future, this could be unified with the main `render.py` module to reduce code duplication.
+-   **Unimplemented Arguments:** `--width`, `--height`, and `--full-width` are placeholders and do not affect output size.
+-   **No Sound Support:** Audio from video files is ignored.
+-   **No Playback Controls:** Pausing, seeking, or adjusting speed is not yet implemented.
+-   **Image/GIF Offline Rendering:** The `--output` flag is not yet complete for static images or GIFs.
+-   **Code Refactoring:** Future work includes unifying rendering pipelines to reduce code duplication.
 
 ---
 
 ## Dependencies
 
-To run `ansipix`, you need Python 3 and the following packages, which can be installed via pip:
+To run `ansipix`, you need Python 3 and the following packages:
 
 ```bash
 pip install opencv-python numpy Pillow
@@ -163,10 +186,10 @@ pip install opencv-python numpy Pillow
 `ansipix` is released under a dual-license model.
 
 ### For Open-Source Projects
-For use in open-source projects, `ansipix` is licensed under the **GNU General Public License v3.0**. You are free to use, modify, and distribute it in your open-source projects, provided you comply with the terms of the GPLv3.
+For use in open-source projects, `ansipix` is licensed under the **GNU General Public License v3.0**.
 
 ### For Commercial and Closed-Source Use
-For use in any commercial and/or closed-source application, a separate commercial license is required. Please contact me to arrange a license that fits your needs.
+For use in any commercial and/or closed-source application, a separate commercial license is required. Please contact me to arrange a license.
 
 **Author:** EdgeOfAssembly  
 **Contact:** [haxbox2000@gmail.com](mailto:haxbox2000@gmail.com)
