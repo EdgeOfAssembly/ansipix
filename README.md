@@ -16,6 +16,27 @@ Get a taste of what your videos will look like when converted to vivid ANSI art 
 - [Sample 2](https://drive.google.com/file/d/1ISAlvCLuHWLahWl8lZuQjXXIv_JKhw6u/view)
 - [Sample 3](https://drive.google.com/file/d/1LANmGEg8V0yWHEkaQBGj9rpDI-rU8HpJ/view)
 
+There is also a ready pre-rendered `.ansipix` file that you can download from here:
+- [cyber_JetBrains_Mono_Regular_8pt.ansipix.zst](https://drive.google.com/file/d/1vEiPl1gPYAtEwtqslHGmkkl9OycPXBzn/view)
+
+Settings used to create that `.ansipix` file:
+```
+Font:           JetBrains Mono Regular (recommended but of course you can use any font)
+Size:           8pt
+Terminal:       LXTerminal (Alacritty recommended)
+```
+
+After downloading, unzip it like this:
+```bash
+zstd -d cyber_JetBrains_Mono_Regular_8pt.ansipix.zst
+```
+And then if you installed `ansipix` with pip, just run:
+```bash
+ansipix cyber_JetBrains_Mono_Regular_8pt.ansipix
+```
+
+*Later I will update the `ansipix` file specification to have meta-data for the used font, font-size, and maybe a compression scheme.*
+
 ---
 
 ### Installation
