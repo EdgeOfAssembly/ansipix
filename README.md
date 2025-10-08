@@ -12,7 +12,7 @@
 
 Get a taste of what your videos will look like when converted to vivid ANSI art for the terminal! Check out these samples:
 
-- [Sample 1](https://drive.google.com/file/d/16JNnaaoCMCQzo3t8yLcDo8X00DoAtmX2/view)
+- [Sample 1](https://drive.google.com/file/d/1fPeoOwCXe52MvtfyQxmDcpeyxlsQeFLI/view)
 - [Sample 2](https://drive.google.com/file/d/1ISAlvCLuHWLahWl8lZuQjXXIv_JKhw6u/view)
 - [Sample 3](https://drive.google.com/file/d/1LANmGEg8V0yWHEkaQBGj9rpDI-rU8HpJ/view)
 
