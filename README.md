@@ -123,6 +123,12 @@ ansipix path/to/my_image.png
 # Play an animated GIF (loops infinitely by default)
 ansipix path/to/animation.gif
 
+# Play a video with audio (requires ffmpeg)
+ansipix path/to/my_video.mp4
+
+# Play a video without audio
+ansipix path/to/my_video.mp4 --no-audio
+
 # Play a video and loop it 3 times
 ansipix path/to/my_video.mp4 --loop 3
 ```
@@ -185,7 +191,7 @@ options:
 ## Current Limitations & Future Work
 
 -   **Unimplemented Arguments:** `--width`, `--height`, and `--full-width` are placeholders and do not affect output size.
--   **No Sound Support:** Audio from video files is ignored.
+-   **Limited Audio Support:** Audio is now supported for live video playback only (not yet for `.ansipix` files). Requires `ffmpeg` to be installed for audio extraction.
 -   **No Playback Controls:** Pausing, seeking, or adjusting speed is not yet implemented.
 -   **Image/GIF Offline Rendering:** The `--output` flag is not yet complete for static images or GIFs.
 -   **Code Refactoring:** Future work includes unifying rendering pipelines to reduce code duplication.
@@ -197,8 +203,14 @@ options:
 To run `ansipix`, you need Python 3 and the following packages:
 
 ```bash
-pip install opencv-python numpy Pillow
+pip install opencv-python numpy Pillow miniaudio
 ```
+
+**Optional but Recommended:**
+- `ffmpeg` - Required for audio playback in videos. Install via your package manager:
+  - **Ubuntu/Debian:** `sudo apt-get install ffmpeg`
+  - **macOS:** `brew install ffmpeg`
+  - **Windows:** Download from [ffmpeg.org](https://ffmpeg.org/download.html)
 
 ---
 

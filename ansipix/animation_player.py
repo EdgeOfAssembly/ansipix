@@ -26,6 +26,7 @@ from typing import Tuple, List, Optional
 from .render import render_video_image
 from .image_process import process_single_frame
 from .debug_logger import DebugLogger
+from .audio_player import AudioPlayer
 
 def producer(
     queue: Queue, 
@@ -93,7 +94,8 @@ def play_video(
     n_frames: int, 
     durations: List[float], 
     logger: DebugLogger, 
-    exit_event: Event
+    exit_event: Event,
+    enable_audio: bool = True
 ) -> None:
     """
     Plays a video file by rendering it live in the terminal.
@@ -113,8 +115,20 @@ def play_video(
         durations (List[float]): List of durations for each frame.
         logger (DebugLogger): Logger for debug output.
         exit_event (Event): Event to signal for graceful termination.
+        enable_audio (bool): Whether to enable audio playback. Default is True.
     """
     logger.log("Video playback started. Using on-demand producer/consumer model.")
+    
+    # Initialize audio player
+    audio_player: Optional[AudioPlayer] = None
+    if enable_audio:
+        audio_player = AudioPlayer(image_path, logger)
+        audio_started = audio_player.start()
+        if audio_started:
+            logger.log("Audio playback enabled")
+        else:
+            logger.log("Audio playback not available or video has no audio")
+            audio_player = None
 
     hide_cursor, show_cursor = "\033[?25l", "\033[?25h"
     alt_buffer_enter, alt_buffer_exit = "\033[?1049h", "\033[?1049l"
@@ -154,6 +168,11 @@ def play_video(
     
     producer_thread.join(timeout=1.0)
     if producer_thread.is_alive(): os._exit(0) # Force exit if thread is stuck
+    
+    # Stop audio playback
+    if audio_player:
+        audio_player.stop()
+        logger.log("Audio playback stopped")
     
     gc.enable() # Re-enable garbage collection
     sys.stdout.write(show_cursor + alt_buffer_exit + "\n")
