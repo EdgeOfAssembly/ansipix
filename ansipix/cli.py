@@ -97,7 +97,8 @@ def main_logic(args: argparse.Namespace) -> None:
             signal.signal(signal.SIGTERM, signal_handler)
             
             _t_char_w, _t_char_h, target_pixel_w, target_pixel_h = calculate_dimensions(orig_w, orig_h, term_w, effective_h)
-            play_video(args, args.image_path, target_pixel_w, target_pixel_h, term_w, effective_h * 2, n_frames_loader, durations, logger, exit_event)
+            enable_audio = not args.no_audio
+            play_video(args, args.image_path, target_pixel_w, target_pixel_h, term_w, effective_h * 2, n_frames_loader, durations, logger, exit_event, enable_audio)
             
             signal.signal(signal.SIGINT, original_sigint)
             signal.signal(signal.SIGTERM, original_sigterm)
@@ -122,6 +123,7 @@ def cli():
     parser.add_argument("--buffer-percent", type=int, default=10, help="Video pre-buffering RAM percentage.")
     parser.add_argument("--downsample-method", choices=['nearest', 'linear', 'cubic', 'area', 'lanczos4'], default='area', help="Downsampling method for resizing.")
     parser.add_argument("--profile", help="Profile execution and save results to file.")
+    parser.add_argument("--no-audio", action="store_true", help="Disable audio playback for videos.")
     args = parser.parse_args()
 
     if args.profile:
