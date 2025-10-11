@@ -33,6 +33,7 @@ dependencies = [
     "opencv-python",
     "numpy",
     "Pillow",
+    "miniaudio",
 ]
 
 [project.urls]
